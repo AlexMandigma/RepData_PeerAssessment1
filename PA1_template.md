@@ -23,9 +23,8 @@ meanSteps <- aggregate(Activity$steps ~ Activity$date, FUN=sum, )
 colnames(meanSteps)<- c("Date", "Steps")
 ```
 histogram
-```{r echo=FALSE}
-hist(meanSteps$Steps, breaks=5, xlab="Steps", main = "Total Steps per Day")
-```
+![186](https://github.com/AlexMandigma/RepData_PeerAssessment1/blob/master/unnamed-chunk-186-1.png)
+
 Calculate and report the mean and median of the total number of steps taken per day
 ```{r}
 as.integer(mean(meanSteps$Steps))
@@ -39,11 +38,7 @@ as.integer(median(meanSteps$Steps))
 What is the average daily activity pattern?
 
 Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
-```{r echo=FALSE}
-averageSteps <- ddply(removeNa, .(interval), summarize, Avg = mean(steps))
-p <- ggplot(averageSteps, aes(x=interval, y=Avg), xlab = "Interval", ylab="Average Number of Steps")
-p + geom_line()+xlab("Interval")+ylab("Average Number of Steps")+ggtitle("Average Number of Steps per five-minute Interval")
-```
+![188](https://github.com/AlexMandigma/RepData_PeerAssessment1/blob/master/unnamed-chunk-188-1.png)
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 ```{r}
 maxSteps <- max(averageSteps$Avg)
@@ -86,11 +81,7 @@ median - 11015
 Only minor impact but does not distort the data
 
 Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
-```{r echo=FALSE}
-hist(meanSteps2$Steps, breaks=5, xlab="Steps", main = "Total Steps per Day with Imputed Data", col="Black")
-hist(meanSteps$Steps, breaks=5, xlab="Steps", main = "Total Steps per Day with Imouted Data", col="Grey", add=T)
-legend("topright", c("Imputed Data", "Non-NA Data"), fill=c("black", "grey") )
-```
+![194](https://github.com/AlexMandigma/RepData_PeerAssessment1/blob/master/unnamed-chunk-194-1.png)
 
 Are there differences in activity patterns between weekdays and weekends?
 
@@ -100,11 +91,6 @@ merged$DayCategory <- ifelse(merged$day %in% c("Saturday", "Sunday"), "Weekend",
 ```
 Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
-```{r echo=FALSE}
-averageSteps2 <- ddply(merged, .(interval, DayCategory), summarize, Avg = mean(steps))
-plot(xyplot(Avg~interval|DayCategory, data=averageSteps2, type="l",  layout = c(1,2),
-       main="Average Steps per Interval Based on Type of Day", 
-       ylab="Average Number of Steps", xlab="Interval"))
-```
+![196](https://github.com/AlexMandigma/RepData_PeerAssessment1/blob/master/unnamed-chunk-196-1.png)
 people tend to be more active on weekdays
 
