@@ -3,7 +3,7 @@
 output:html_document
   keep_md: true
 ---
-## Loading and preprocessing the data
+##Loading and preprocessing the data
 ```{r}
 library(ggplot2)
 library(plyr)
@@ -15,7 +15,7 @@ Activity$DateTime<- as.POSIXct(activity$date, format="%Y-%m-%d")
 removeNa <- Activity[!is.na(Activity$steps),]
 ```
 
-## What is mean total number of steps taken per day?
+##What is mean total number of steps taken per day?
 #Calculate the total number of steps taken per day
 ```{r}
 meanSteps <- aggregate(Activity$steps ~ Activity$date, FUN=sum, )
@@ -31,10 +31,11 @@ as.integer(mean(meanSteps$Steps))
 as.integer(median(meanSteps$Steps))
 ```
 10766 steps-average
+
 10765 steps-meadian.
 
 
-## What is the average daily activity pattern?
+##What is the average daily activity pattern?
 
 #Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 ```{r echo=FALSE}
@@ -48,7 +49,7 @@ p + geom_line()+xlab("Interval")+ylab("Average Number of Steps")+ggtitle("Averag
 maxSteps <- max(averageSteps$Avg)
 averageSteps[averageSteps$Avg==maxSteps,1]
 ```
-#835th interval
+835th interval
 
 
 ##Imputing missing values
@@ -56,7 +57,7 @@ averageSteps[averageSteps$Avg==maxSteps,1]
 ```{r}
 nrow(Activity[is.na(Activity$steps),])
 ```
-2304
+2304 missing values
 
 #Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. 
 ```{r}
@@ -81,6 +82,7 @@ mean -10821
 as.integer(median(meanSteps2$Steps))
 ```
 median - 11015
+
 Only minor impact but does not distort the data
 
 #Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
@@ -90,7 +92,7 @@ hist(meanSteps$Steps, breaks=5, xlab="Steps", main = "Total Steps per Day with I
 legend("topright", c("Imputed Data", "Non-NA Data"), fill=c("black", "grey") )
 ```
 
-## Are there differences in activity patterns between weekdays and weekends?
+##Are there differences in activity patterns between weekdays and weekends?
 
 #Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 ```{r}
